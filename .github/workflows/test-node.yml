@@ -1,0 +1,23 @@
+# Write a workflow that installs dependancies and runs the test. Specify a default folder for all the steps inside the job.
+
+name: Test Node
+on:
+  push:
+
+jobs:
+    checkouts:
+        runs-on: ubuntu-latest
+        steps:
+        - uses: actions/checkout@v2
+    tests:
+        runs-on: ubuntu-latest
+        needs: checkouts
+        defaults:
+          run:
+            working-directory: ./node-app
+        steps:
+        - uses: actions/setup-node@v2
+          with:
+            node-version: '16'
+        - run: npm install
+        - run: npm test
