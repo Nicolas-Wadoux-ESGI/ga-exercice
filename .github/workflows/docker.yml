@@ -1,0 +1,17 @@
+#1. Now, instead of installing node js with the action, use a node image for the tests of the node-app
+
+name: Test Node
+on:
+  push:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./node-app
+    container:
+      image: node:16
+    steps:
+      - uses: actions/checkout@v3
+      - run: npm install
+      - run: npm test
